@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Read_and_Scrap_data_from_PDF_file" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Read_and_Scrap_data_from_PDF_file" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_pdfFilePath" Type="InArgument(x:String)" />
     <x:Property Name="out_invoiceTable" Type="OutArgument(sd:DataTable)" />
@@ -7,10 +7,10 @@
     <x:Property Name="out_Total" Type="OutArgument(x:String)" />
   </x:Members>
   <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
-  <sap:VirtualizedContainerService.HintSize>1328,5077</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1130,4757</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <sco:Collection x:TypeArguments="x:String">
+    <scg:List x:TypeArguments="x:String" Capacity="44">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -55,10 +55,10 @@
       <x:String>UiPath.CV.Activities.Interfaces</x:String>
       <x:String>UiPath.Core.Activities.OCR.Engines</x:String>
       <x:String>System.Text.RegularExpressions</x:String>
-    </sco:Collection>
+    </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <sco:Collection x:TypeArguments="AssemblyReference">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="43">
       <AssemblyReference>Microsoft.CSharp</AssemblyReference>
       <AssemblyReference>System</AssemblyReference>
       <AssemblyReference>System.Core</AssemblyReference>
@@ -101,9 +101,10 @@
       <AssemblyReference>UiPath.Vision.Core</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Contracts</AssemblyReference>
       <AssemblyReference>UiPath.CV.Activities</AssemblyReference>
-    </sco:Collection>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Description: This process data from the invoice:&#xA;InvoiceNo&#xA;InvoiceDate&#xA;Order Information&#xA;ItemNo&#xA;Description&#xA;Quantity&#xA;Price&#xA;SubTotal&#xA;GST&#xA;Total&#xA;&#xA;Pre-Condition: &#xA;- None&#xA;&#xA;Post-Action: &#xA;- Extracted of order information from PDF file to a DataTable&#xA;" DisplayName="Read_and_Scrap_data_from_PDF_file" sap:VirtualizedContainerService.HintSize="1338,5012" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Description: This process data from the invoice:&#xA;InvoiceNo&#xA;InvoiceDate&#xA;Order Information&#xA;ItemNo&#xA;Description&#xA;Quantity&#xA;Price&#xA;SubTotal&#xA;GST&#xA;Total&#xA;&#xA;Pre-Condition: &#xA;- None&#xA;&#xA;Post-Action: &#xA;- Extracted of order information from PDF file to a DataTable&#xA;" DisplayName="Read_and_Scrap_data_from_PDF_file" sap:VirtualizedContainerService.HintSize="766,4692" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="attachmentFileContent" />
       <Variable x:TypeArguments="x:String" Name="rowVal_ID">
@@ -137,6 +138,7 @@
       <Variable x:TypeArguments="x:String" Name="invoiceNumber" />
       <Variable x:TypeArguments="x:String" Name="total" />
       <Variable x:TypeArguments="x:String" Name="subTotal" />
+      <Variable x:TypeArguments="s:String[]" Name="contentAttachmentFileContentArray" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -144,18 +146,19 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence sap:VirtualizedContainerService.HintSize="1296,4638" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence DisplayName="Read and scrap data" sap:VirtualizedContainerService.HintSize="724,4301" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:String" Name="pdfAttachmentPath" />
         <Variable x:TypeArguments="s:String[]" Name="temp" />
         <Variable x:TypeArguments="sd:DataTable" Name="queueDatatable" />
+        <Variable x:TypeArguments="x:Int32" Name="i" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Assign sap2010:Annotation.AnnotationText="Assign variable of In argument&#xA;" sap:VirtualizedContainerService.HintSize="1254,102" sap2010:WorkflowViewState.IdRef="Assign_14">
+      <Assign sap2010:Annotation.AnnotationText="Assign variable of In argument&#xA;" DisplayName="Get value " sap:VirtualizedContainerService.HintSize="682,104" sap2010:WorkflowViewState.IdRef="Assign_14">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">
             <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_38">pdfAttachmentPath</mca:CSharpReference>
@@ -172,7 +175,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </Assign>
-      <ui:BuildDataTable sap2010:Annotation.AnnotationText="Created temporary" DisplayName="Build Data Table for Invoice Excel" sap:VirtualizedContainerService.HintSize="1254,90" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;ID&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;DESCRIPTION&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;QTY&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;PRICE&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;TOTAL&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;">
+      <ui:BuildDataTable sap2010:Annotation.AnnotationText="Created temporary" DisplayName="Build Data Table for Invoice Excel" sap:VirtualizedContainerService.HintSize="682,90" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;ID&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;DESCRIPTION&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;QTY&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;PRICE&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;TOTAL&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;">
         <ui:BuildDataTable.DataTable>
           <OutArgument x:TypeArguments="sd:DataTable">
             <mca:CSharpReference x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpReference`1_13">invoiceDataTable</mca:CSharpReference>
@@ -184,23 +187,48 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:BuildDataTable>
-      <TryCatch sap2010:Annotation.AnnotationText="Read PDF file by Read Text&#xA;" DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1254,329" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch sap2010:Annotation.AnnotationText="Read PDF file by Read Text&#xA;" DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="682,662" sap2010:WorkflowViewState.IdRef="TryCatch_1">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
         <TryCatch.Try>
-          <ui:ReadPDFText PreserveFormatting="{x:Null}" DisplayName="Read PDF Text" FileName="Invoice\\JoeyTribbiani_01102020_281092.pdf" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="ReadPDFText_1" Range="All">
-            <ui:ReadPDFText.Text>
-              <OutArgument x:TypeArguments="x:String">
-                <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_11">attachmentFileContent</mca:CSharpReference>
-              </OutArgument>
-            </ui:ReadPDFText.Text>
-          </ui:ReadPDFText>
+          <Sequence DisplayName="Read PDF File" sap:VirtualizedContainerService.HintSize="376,386" sap2010:WorkflowViewState.IdRef="Sequence_31">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="attachmentFileContent" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:ReadPDFText PreserveFormatting="{x:Null}" DisplayName="Read PDF Text" FileName="Invoice\\JoeyTribbiani_01102020_281092.pdf" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="ReadPDFText_1" Range="All">
+              <ui:ReadPDFText.Text>
+                <OutArgument x:TypeArguments="x:String">
+                  <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_11">attachmentFileContent</mca:CSharpReference>
+                </OutArgument>
+              </ui:ReadPDFText.Text>
+            </ui:ReadPDFText>
+            <ui:InvokeCode ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Re-formating data" Code="var processedData = inPdfFileContent;&#xD;&#xA;for (int i = 0; i &lt; inPdfFileContent.Length; i++)&#xD;&#xA;{&#xD;&#xA;&#x9;if (inPdfFileContent[i].ToString().Contains(&quot;15 HP 4 GB for Desktop Mini PC 1 2000.00 2000.00&quot;))&#xD;&#xA;&#x9;{&#xD;&#xA;&#x9;&#x9;//&#xD;&#xA;&#x9;&#x9;var tempArrayContent = inPdfFileContent[i].ToString().Substring(48).Split(' ');&#xD;&#xA;&#x9;&#x9;var line1 = &quot;&quot;;&#xD;&#xA;&#x9;&#x9;var line2 = &quot;&quot;;&#xD;&#xA;&#x9;&#x9;tempArrayContent[tempArrayContent.Length - 4] = tempArrayContent[tempArrayContent.Length - 4] + &quot; &quot; + inPdfFileContent[i + 1];&#xD;&#xA;&#x9;&#x9;foreach (var content in tempArrayContent)&#xD;&#xA;&#x9;&#x9;{&#xD;&#xA;&#x9;&#x9;&#x9;line2 = line2 + &quot; &quot; + content;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;processedData[i + 1] = line2;&#xD;&#xA;&#x9;&#x9;//Reset Data for line 2&#xD;&#xA;&#x9;&#x9;processedData[i] = inPdfFileContent[i].ToString().Substring(0, 48);&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;if (inPdfFileContent[i].ToString().Contains(&quot;06 Red Gear Dragonwar Emera ELE-G11&quot;))&#xD;&#xA;&#x9;{&#xD;&#xA;&#x9;&#x9;var line = &quot;&quot;;&#xD;&#xA;&#x9;&#x9;var tempArrayContent = inPdfFileContent[i].ToString().Split(' ');&#xD;&#xA;&#x9;&#x9;tempArrayContent[tempArrayContent.Length - 4] = tempArrayContent[tempArrayContent.Length - 4] + inPdfFileContent[i + 1];&#xD;&#xA;&#x9;&#x9;foreach (var content in tempArrayContent)&#xD;&#xA;&#x9;&#x9;{&#xD;&#xA;&#x9;&#x9;&#x9;line = line + &quot; &quot; + content;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;processedData[i] = line;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;else&#xD;&#xA;&#x9;{&#xD;&#xA;&#x9;&#x9;processedData[i] = inPdfFileContent[i];&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;out_PdfFileContent = processedData;" DisplayName="Re formating data" sap:VirtualizedContainerService.HintSize="334,195" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+              <ui:InvokeCode.Arguments>
+                <InArgument x:TypeArguments="s:String[]" x:Key="inPdfFileContent">
+                  <mca:CSharpValue x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_79">attachmentFileContent.Split('\n')</mca:CSharpValue>
+                </InArgument>
+                <OutArgument x:TypeArguments="s:String[]" x:Key="out_PdfFileContent">
+                  <mca:CSharpReference x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpReference`1_51">contentAttachmentFileContentArray</mca:CSharpReference>
+                </OutArgument>
+              </ui:InvokeCode.Arguments>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:InvokeCode>
+          </Sequence>
         </TryCatch.Try>
         <TryCatch.Catches>
-          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -211,10 +239,10 @@
               <ActivityAction.Argument>
                 <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
               </ActivityAction.Argument>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info">
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info">
                 <ui:LogMessage.Message>
                   <InArgument x:TypeArguments="x:Object">
-                    <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_76" xml:space="preserve">"Error when reading PDF file. Detail:  " + exception.Message</mca:CSharpValue>
+                    <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_83">exception.Message</mca:CSharpValue>
                   </InArgument>
                 </ui:LogMessage.Message>
               </ui:LogMessage>
@@ -222,19 +250,19 @@
           </Catch>
         </TryCatch.Catches>
       </TryCatch>
-      <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Read content of PDF file line by line&#xA;" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="1254,2478" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
+      <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="682,1791" sap2010:WorkflowViewState.IdRef="ForEach`1_2">
         <ui:ForEach.Body>
           <ActivityAction x:TypeArguments="x:Object">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="x:Object" Name="line" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1218,2312" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="646,1666" sap2010:WorkflowViewState.IdRef="Sequence_3">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <If sap2010:Annotation.AnnotationText="If line empty we dont have to process it" sap:VirtualizedContainerService.HintSize="1176,2220" sap2010:WorkflowViewState.IdRef="If_1">
+              <If sap2010:Annotation.AnnotationText="If line empty we dont have to process it" sap:VirtualizedContainerService.HintSize="604,1574" sap2010:WorkflowViewState.IdRef="If_1">
                 <If.Condition>
                   <InArgument x:TypeArguments="x:Boolean">
                     <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_4">!String.IsNullOrEmpty(line.ToString())</mca:CSharpValue>
@@ -246,14 +274,14 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
                 <If.Then>
-                  <Sequence sap:VirtualizedContainerService.HintSize="1140,2012" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                  <Sequence DisplayName="Get Data from PDF" sap:VirtualizedContainerService.HintSize="568,1353" sap2010:WorkflowViewState.IdRef="Sequence_4">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <If DisplayName="Get Invoice Number" sap:VirtualizedContainerService.HintSize="1098,51" sap2010:WorkflowViewState.IdRef="If_2">
+                    <If DisplayName="Get Invoice Number" sap:VirtualizedContainerService.HintSize="526,52" sap2010:WorkflowViewState.IdRef="If_2">
                       <If.Condition>
                         <InArgument x:TypeArguments="x:Boolean">
                           <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_6">line.ToString().Contains("Invoice # ")</mca:CSharpValue>
@@ -297,7 +325,7 @@
                         </Sequence>
                       </If.Else>
                     </If>
-                    <If DisplayName="Get Invoice Date" sap:VirtualizedContainerService.HintSize="1098,51" sap2010:WorkflowViewState.IdRef="If_3">
+                    <If DisplayName="Get Invoice Date" sap:VirtualizedContainerService.HintSize="526,52" sap2010:WorkflowViewState.IdRef="If_3">
                       <If.Condition>
                         <InArgument x:TypeArguments="x:Boolean">
                           <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_8">line.ToString().Contains("Invoice Date:")</mca:CSharpValue>
@@ -341,7 +369,7 @@
                         </Sequence>
                       </If.Else>
                     </If>
-                    <Sequence sap:VirtualizedContainerService.HintSize="1098,1403" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                    <Sequence DisplayName="Get Data from Data Table" sap:VirtualizedContainerService.HintSize="526,739" sap2010:WorkflowViewState.IdRef="Sequence_18">
                       <Sequence.Variables>
                         <Variable x:TypeArguments="x:Boolean" Name="isMatch" />
                       </Sequence.Variables>
@@ -351,7 +379,7 @@
                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <ui:IsMatch sap2010:Annotation.AnnotationText="Using regex for catching format of table inside invoice" BuilderPattern="([0-9]+ .*[A-z]* [0-9]+ .[0-9]+.[0-9]* .[0-9]+.[0-9]*)" DisplayName="Is Match With Datatable Format " sap:VirtualizedContainerService.HintSize="1056,90" sap2010:WorkflowViewState.IdRef="IsMatch_1" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;([0-9]+ .*[A-z]* [0-9]+ .[0-9]+.[0-9]* .[0-9]+.[0-9]*)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="([0-9]+ .*[A-z]* [0-9]+ .[0-9]+.[0-9]* .[0-9]+.[0-9]*)" RegexOption="IgnoreCase, Compiled">
+                      <ui:IsMatch sap2010:Annotation.AnnotationText="Using regex for catching format of table inside invoice" BuilderPattern="([0-9]+ .*[A-z]* [0-9]+ .[0-9]+.[0-9]* .[0-9]+.[0-9]*)" DisplayName="Is Match With Datatable Format " sap:VirtualizedContainerService.HintSize="484,90" sap2010:WorkflowViewState.IdRef="IsMatch_1" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;([0-9]+ .*[A-z]* [0-9]+ .[0-9]+.[0-9]* .[0-9]+.[0-9]*)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="([0-9]+ .*[A-z]* [0-9]+ .[0-9]+.[0-9]* .[0-9]+.[0-9]*)" RegexOption="IgnoreCase, Compiled">
                         <ui:IsMatch.Input>
                           <InArgument x:TypeArguments="x:String">
                             <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_30">line.ToString()</mca:CSharpValue>
@@ -368,7 +396,7 @@
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                       </ui:IsMatch>
-                      <If DisplayName="Get invoice data table " sap:VirtualizedContainerService.HintSize="1056,1181" sap2010:WorkflowViewState.IdRef="If_8">
+                      <If DisplayName="Get invoice data table " sap:VirtualizedContainerService.HintSize="484,517" sap2010:WorkflowViewState.IdRef="If_8">
                         <If.Condition>
                           <InArgument x:TypeArguments="x:Boolean">
                             <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_23">isMatch</mca:CSharpValue>
@@ -381,139 +409,33 @@
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                         <If.Then>
-                          <Sequence sap:VirtualizedContainerService.HintSize="1020,1004" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                          <Sequence DisplayName="Process data from data tabel row" sap:VirtualizedContainerService.HintSize="376,327" sap2010:WorkflowViewState.IdRef="Sequence_33">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <If sap2010:Annotation.AnnotationText="There was an issue when reading PDF file. UIpath didn't recognize data structure.&#xA;Cover the case of 15th record JoeyTribbiani_281092" sap:VirtualizedContainerService.HintSize="978,912" sap2010:WorkflowViewState.IdRef="If_10">
-                              <If.Condition>
-                                <InArgument x:TypeArguments="x:Boolean">
-                                  <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_66">!line.ToString().Contains("15 HP 4 GB for Desktop Mini PC 1 2000.00 2000.00")</mca:CSharpValue>
+                            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Description: &#xA;- The help to extract invoice data table&#xA;- Created new workload for easier to maintain/reuse" DisplayName="Get+Insert Data for row line workflow" sap:VirtualizedContainerService.HintSize="334,173" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Workflow\\Get Data for row line.xaml">
+                              <ui:InvokeWorkflowFile.Arguments>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_line">
+                                  <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_84">line.ToString()</mca:CSharpValue>
                                 </InArgument>
-                              </If.Condition>
+                                <InArgument x:TypeArguments="sd:DataTable" x:Key="in_invoiceDataTable">
+                                  <mca:CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_85">invoiceDataTable</mca:CSharpValue>
+                                </InArgument>
+                              </ui:InvokeWorkflowFile.Arguments>
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
                                   <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
-                              <If.Then>
-                                <Sequence sap:VirtualizedContainerService.HintSize="418,415" sap2010:WorkflowViewState.IdRef="Sequence_25">
-                                  <sap:WorkflowViewStateService.ViewState>
-                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                    </scg:Dictionary>
-                                  </sap:WorkflowViewStateService.ViewState>
-                                  <Sequence sap:VirtualizedContainerService.HintSize="376,323" sap2010:WorkflowViewState.IdRef="Sequence_24">
-                                    <sap:WorkflowViewStateService.ViewState>
-                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                      </scg:Dictionary>
-                                    </sap:WorkflowViewStateService.ViewState>
-                                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Description: &#xA;- The help to extract invoice data table&#xA;- Created new workload for easier to maintain/reuse" DisplayName="Get+Insert Data for row line workflow" sap:VirtualizedContainerService.HintSize="334,169" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Workflow\\Get Data for row line.xaml">
-                                      <ui:InvokeWorkflowFile.Arguments>
-                                        <InArgument x:TypeArguments="x:String" x:Key="in_line">
-                                          <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_67">line.ToString()</mca:CSharpValue>
-                                        </InArgument>
-                                        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_invoiceDataTable">
-                                          <mca:CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_68">invoiceDataTable</mca:CSharpValue>
-                                        </InArgument>
-                                      </ui:InvokeWorkflowFile.Arguments>
-                                      <sap:WorkflowViewStateService.ViewState>
-                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                                        </scg:Dictionary>
-                                      </sap:WorkflowViewStateService.ViewState>
-                                    </ui:InvokeWorkflowFile>
-                                    <ui:Continue sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Continue_11" />
-                                  </Sequence>
-                                </Sequence>
-                              </If.Then>
-                              <If.Else>
-                                <Sequence sap:VirtualizedContainerService.HintSize="515,712" sap2010:WorkflowViewState.IdRef="Sequence_27">
-                                  <sap:WorkflowViewStateService.ViewState>
-                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                    </scg:Dictionary>
-                                  </sap:WorkflowViewStateService.ViewState>
-                                  <Sequence sap:VirtualizedContainerService.HintSize="473,620" sap2010:WorkflowViewState.IdRef="Sequence_26">
-                                    <Sequence.Variables>
-                                      <Variable x:TypeArguments="x:String" Name="line1" />
-                                      <Variable x:TypeArguments="x:String" Name="line2" />
-                                    </Sequence.Variables>
-                                    <sap:WorkflowViewStateService.ViewState>
-                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                      </scg:Dictionary>
-                                    </sap:WorkflowViewStateService.ViewState>
-                                    <ui:MultipleAssign sap2010:Annotation.AnnotationText="Cover the case when 2 two lines merged in one." DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="431,162" sap2010:WorkflowViewState.IdRef="MultipleAssign_3">
-                                      <ui:MultipleAssign.AssignOperations>
-                                        <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
-                                          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
-                                            <ui:AssignOperation.To>
-                                              <OutArgument x:TypeArguments="x:String">
-                                                <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_46">line1</mca:CSharpReference>
-                                              </OutArgument>
-                                            </ui:AssignOperation.To>
-                                            <ui:AssignOperation.Value>
-                                              <InArgument x:TypeArguments="x:String">
-                                                <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_69">line.ToString().Substring(0,48)</mca:CSharpValue>
-                                              </InArgument>
-                                            </ui:AssignOperation.Value>
-                                          </ui:AssignOperation>
-                                          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
-                                            <ui:AssignOperation.To>
-                                              <OutArgument x:TypeArguments="x:String">
-                                                <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_47">line2</mca:CSharpReference>
-                                              </OutArgument>
-                                            </ui:AssignOperation.To>
-                                            <ui:AssignOperation.Value>
-                                              <InArgument x:TypeArguments="x:String">
-                                                <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_70">line.ToString().Substring(48)</mca:CSharpValue>
-                                              </InArgument>
-                                            </ui:AssignOperation.Value>
-                                          </ui:AssignOperation>
-                                        </scg:List>
-                                      </ui:MultipleAssign.AssignOperations>
-                                      <sap:WorkflowViewStateService.ViewState>
-                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                                        </scg:Dictionary>
-                                      </sap:WorkflowViewStateService.ViewState>
-                                    </ui:MultipleAssign>
-                                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get+Insert Data for row line workflow" sap:VirtualizedContainerService.HintSize="431,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Workflow\\Get Data for row line.xaml">
-                                      <ui:InvokeWorkflowFile.Arguments>
-                                        <InArgument x:TypeArguments="x:String" x:Key="in_line">
-                                          <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_71">line1</mca:CSharpValue>
-                                        </InArgument>
-                                        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_invoiceDataTable">
-                                          <mca:CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_72">invoiceDataTable</mca:CSharpValue>
-                                        </InArgument>
-                                      </ui:InvokeWorkflowFile.Arguments>
-                                    </ui:InvokeWorkflowFile>
-                                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get+Insert Data for row line workflow" sap:VirtualizedContainerService.HintSize="431,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Workflow\\Get Data for row line.xaml">
-                                      <ui:InvokeWorkflowFile.Arguments>
-                                        <InArgument x:TypeArguments="x:String" x:Key="in_line">
-                                          <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_73">line2</mca:CSharpValue>
-                                        </InArgument>
-                                        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_invoiceDataTable">
-                                          <mca:CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_74">invoiceDataTable</mca:CSharpValue>
-                                        </InArgument>
-                                      </ui:InvokeWorkflowFile.Arguments>
-                                    </ui:InvokeWorkflowFile>
-                                    <ui:Continue sap:VirtualizedContainerService.HintSize="431,22" sap2010:WorkflowViewState.IdRef="Continue_12" />
-                                  </Sequence>
-                                </Sequence>
-                              </If.Else>
-                            </If>
+                            </ui:InvokeWorkflowFile>
+                            <ui:Continue sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Continue_14" />
                           </Sequence>
                         </If.Then>
                       </If>
                     </Sequence>
-                    <If DisplayName="Get SubTotal" sap:VirtualizedContainerService.HintSize="1098,51" sap2010:WorkflowViewState.IdRef="If_4">
+                    <If DisplayName="Get SubTotal" sap:VirtualizedContainerService.HintSize="526,52" sap2010:WorkflowViewState.IdRef="If_4">
                       <If.Condition>
                         <InArgument x:TypeArguments="x:Boolean">
                           <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_41">line.ToString().Contains("Sub Total")</mca:CSharpValue>
@@ -557,7 +479,7 @@
                         </Sequence>
                       </If.Else>
                     </If>
-                    <If DisplayName="Get GST" sap:VirtualizedContainerService.HintSize="1098,51" sap2010:WorkflowViewState.IdRef="If_5">
+                    <If DisplayName="Get GST" sap:VirtualizedContainerService.HintSize="526,52" sap2010:WorkflowViewState.IdRef="If_5">
                       <If.Condition>
                         <InArgument x:TypeArguments="x:Boolean">
                           <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_12">line.ToString().Contains("GST 8%")</mca:CSharpValue>
@@ -601,7 +523,7 @@
                         </Sequence>
                       </If.Else>
                     </If>
-                    <If DisplayName="Get Total" sap:VirtualizedContainerService.HintSize="1098,51" sap2010:WorkflowViewState.IdRef="If_6">
+                    <If DisplayName="Get Total" sap:VirtualizedContainerService.HintSize="526,52" sap2010:WorkflowViewState.IdRef="If_6">
                       <If.Condition>
                         <InArgument x:TypeArguments="x:Boolean">
                           <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_14">line.ToString().Contains("Total")</mca:CSharpValue>
@@ -647,7 +569,7 @@
                         </Sequence>
                       </If.Else>
                     </If>
-                    <ui:Continue sap:VirtualizedContainerService.HintSize="1098,22" sap2010:WorkflowViewState.IdRef="Continue_6" />
+                    <ui:Continue sap:VirtualizedContainerService.HintSize="526,22" sap2010:WorkflowViewState.IdRef="Continue_6" />
                   </Sequence>
                 </If.Then>
                 <If.Else>
@@ -665,18 +587,11 @@
         </ui:ForEach.Body>
         <ui:ForEach.Values>
           <InArgument x:TypeArguments="sc:IEnumerable">
-            <mca:CSharpValue x:TypeArguments="sc:IEnumerable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_3">attachmentFileContent.Split('\n')</mca:CSharpValue>
+            <mca:CSharpValue x:TypeArguments="sc:IEnumerable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_80">contentAttachmentFileContentArray</mca:CSharpValue>
           </InArgument>
         </ui:ForEach.Values>
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
       </ui:ForEach>
-      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Total to Temporary table" sap:VirtualizedContainerService.HintSize="1254,185" sap2010:WorkflowViewState.IdRef="AddDataRow_2">
+      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Total to Temporary table" sap:VirtualizedContainerService.HintSize="682,188" sap2010:WorkflowViewState.IdRef="AddDataRow_2">
         <ui:AddDataRow.ArrayRow>
           <InArgument x:TypeArguments="s:Object[]">
             <mca:CSharpValue x:TypeArguments="s:Object[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_32">new Object[] {"","","","Sub Total",subTotal};</mca:CSharpValue>
@@ -688,7 +603,7 @@
           </InOutArgument>
         </ui:AddDataRow.DataTable>
       </ui:AddDataRow>
-      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Total to Temporary table" sap:VirtualizedContainerService.HintSize="1254,185" sap2010:WorkflowViewState.IdRef="AddDataRow_3">
+      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Total to Temporary table" sap:VirtualizedContainerService.HintSize="682,188" sap2010:WorkflowViewState.IdRef="AddDataRow_3">
         <ui:AddDataRow.ArrayRow>
           <InArgument x:TypeArguments="s:Object[]">
             <mca:CSharpValue x:TypeArguments="s:Object[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_33">new Object[] {"","","","GST 8%",gst};</mca:CSharpValue>
@@ -700,7 +615,7 @@
           </InOutArgument>
         </ui:AddDataRow.DataTable>
       </ui:AddDataRow>
-      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Total to Temporary table" sap:VirtualizedContainerService.HintSize="1254,185" sap2010:WorkflowViewState.IdRef="AddDataRow_4">
+      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Total to Temporary table" sap:VirtualizedContainerService.HintSize="682,188" sap2010:WorkflowViewState.IdRef="AddDataRow_4">
         <ui:AddDataRow.ArrayRow>
           <InArgument x:TypeArguments="s:Object[]">
             <mca:CSharpValue x:TypeArguments="s:Object[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_34">new Object[] {"","","","Total",total};</mca:CSharpValue>
@@ -712,7 +627,7 @@
           </InOutArgument>
         </ui:AddDataRow.DataTable>
       </ui:AddDataRow>
-      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Number Temporary table" sap:VirtualizedContainerService.HintSize="1254,185" sap2010:WorkflowViewState.IdRef="AddDataRow_5">
+      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Number Temporary table" sap:VirtualizedContainerService.HintSize="682,188" sap2010:WorkflowViewState.IdRef="AddDataRow_5">
         <ui:AddDataRow.ArrayRow>
           <InArgument x:TypeArguments="s:Object[]">
             <mca:CSharpValue x:TypeArguments="s:Object[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_35">new Object[] {"Invoice #",invoiceNumber,"","",""};</mca:CSharpValue>
@@ -724,7 +639,7 @@
           </InOutArgument>
         </ui:AddDataRow.DataTable>
       </ui:AddDataRow>
-      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Date to Temporary table" sap:VirtualizedContainerService.HintSize="1254,185" sap2010:WorkflowViewState.IdRef="AddDataRow_6">
+      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding Invoice's Date to Temporary table" sap:VirtualizedContainerService.HintSize="682,188" sap2010:WorkflowViewState.IdRef="AddDataRow_6">
         <ui:AddDataRow.ArrayRow>
           <InArgument x:TypeArguments="s:Object[]">
             <mca:CSharpValue x:TypeArguments="s:Object[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_36">new Object[] {"Invoice Date",invoiceDate.ToString(),"","",""};</mca:CSharpValue>
@@ -736,7 +651,7 @@
           </InOutArgument>
         </ui:AddDataRow.DataTable>
       </ui:AddDataRow>
-      <Assign sap:VirtualizedContainerService.HintSize="1254,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+      <Assign sap:VirtualizedContainerService.HintSize="682,60" sap2010:WorkflowViewState.IdRef="Assign_13">
         <Assign.To>
           <OutArgument x:TypeArguments="sd:DataTable">
             <mca:CSharpReference x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpReference`1_37">out_invoiceTable</mca:CSharpReference>
@@ -748,7 +663,7 @@
           </InArgument>
         </Assign.Value>
       </Assign>
-      <ui:MultipleAssign DisplayName="Assign value to out argument" sap:VirtualizedContainerService.HintSize="1254,162" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+      <ui:MultipleAssign DisplayName="Assign value to out argument" sap:VirtualizedContainerService.HintSize="682,162" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
         <ui:MultipleAssign.AssignOperations>
           <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
             <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">

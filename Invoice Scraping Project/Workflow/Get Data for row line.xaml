@@ -4,7 +4,7 @@
     <x:Property Name="in_invoiceDataTable" Type="InArgument(sd:DataTable)" />
   </x:Members>
   <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
-  <sap:VirtualizedContainerService.HintSize>1013,1385</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1130,1385</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="25">
@@ -70,7 +70,7 @@
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Description: &#xD;&#xA;- The help to extract invoice data table&#xD;&#xA;- Created new workload for easier to maintain/reuse&#xA;&#xD;&#xA;Pre-Condition: &#xA;- None&#xA;&#xA;Post-Action: &#xA;- Data displayed in table will be insert to temporary table" DisplayName="processLineData" sap:VirtualizedContainerService.HintSize="418,1320" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Description: &#xA;- The help to extract invoice data table&#xA;- Created new workload for easier to maintain/reuse&#xA;&#xA;Pre-Condition: &#xA;- None&#xA;&#xA;Post-Action: &#xA;- Data displayed in table will be insert to temporary table" DisplayName="processLineData" sap:VirtualizedContainerService.HintSize="418,1320" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="line" />
     </Sequence.Variables>
@@ -80,7 +80,7 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign DisplayName="Get line" sap:VirtualizedContainerService.HintSize="376,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+    <Assign DisplayName="Get data for each line" sap:VirtualizedContainerService.HintSize="376,60" sap2010:WorkflowViewState.IdRef="Assign_6">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">
           <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_8">line</mca:CSharpReference>
@@ -88,7 +88,7 @@
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="x:String">
-          <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_8">in_line</mca:CSharpValue>
+          <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_9">in_line.Trim()</mca:CSharpValue>
         </InArgument>
       </Assign.Value>
     </Assign>
@@ -107,7 +107,7 @@
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign DisplayName="Init Variable " sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
         <Assign.To>
           <OutArgument x:TypeArguments="s:String[]">
             <mca:CSharpReference x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpReference`1_1">dataRow</mca:CSharpReference>
@@ -119,7 +119,7 @@
           </InArgument>
         </Assign.Value>
       </Assign>
-      <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign DisplayName="Init Variable " sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_2">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">
             <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_9">rowVal_ID</mca:CSharpReference>
@@ -131,7 +131,7 @@
           </InArgument>
         </Assign.Value>
       </Assign>
-      <ui:InvokeCode ContinueOnError="{x:Null}" Code="string expectedDesc = &quot;&quot;;&#xA;for(int i =1; i&lt; (in_dataRow.Length -3); i++)&#xA;{&#xA;&#x9;expectedDesc = expectedDesc+ &quot; &quot; + in_dataRow[i];&#xA;}&#xA;out_rowVal_Desc = expectedDesc;" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="string expectedDesc = &quot;&quot;;&#xA;for(int i =1; i&lt; (in_dataRow.Length -3); i++)&#xA;{&#xA;&#x9;expectedDesc = expectedDesc+ &quot; &quot; + in_dataRow[i];&#xA;}&#xA;out_rowVal_Desc = expectedDesc;" DisplayName="Merging Description data" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
         <ui:InvokeCode.Arguments>
           <InArgument x:TypeArguments="s:String[]" x:Key="in_dataRow">
             <mca:CSharpValue x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_3">dataRow</mca:CSharpValue>
@@ -141,7 +141,7 @@
           </OutArgument>
         </ui:InvokeCode.Arguments>
       </ui:InvokeCode>
-      <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign DisplayName="Get Quantity value" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_3">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">
             <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_10">rowVal_Qty</mca:CSharpReference>
@@ -153,7 +153,7 @@
           </InArgument>
         </Assign.Value>
       </Assign>
-      <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+      <Assign DisplayName="Get Price value" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_4">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">
             <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_11">rowVal_Price</mca:CSharpReference>
@@ -165,7 +165,7 @@
           </InArgument>
         </Assign.Value>
       </Assign>
-      <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+      <Assign DisplayName="Get Total value" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_5">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">
             <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_12">rowVal_Total</mca:CSharpReference>
@@ -177,7 +177,7 @@
           </InArgument>
         </Assign.Value>
       </Assign>
-      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="334,185" sap2010:WorkflowViewState.IdRef="AddDataRow_1">
+      <ui:AddDataRow DataRow="{x:Null}" DisplayName="Adding data row to Temporary table" sap:VirtualizedContainerService.HintSize="334,185" sap2010:WorkflowViewState.IdRef="AddDataRow_1">
         <ui:AddDataRow.ArrayRow>
           <InArgument x:TypeArguments="s:Object[]">
             <mca:CSharpValue x:TypeArguments="s:Object[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_7">new Object[] {rowVal_ID,rowVal_Desc,rowVal_Qty,rowVal_Price,rowVal_Total};</mca:CSharpValue>
